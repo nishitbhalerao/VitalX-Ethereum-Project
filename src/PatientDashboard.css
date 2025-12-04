@@ -1,0 +1,436 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #f7f9fc;
+  color: #333;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+  width: 250px;
+  background: #ffffff;
+  border-right: 1px solid #e5e9f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.logo h2 {
+  font-size: 24px;
+  color: #2563eb;
+  text-align: center;
+}
+
+.sidebar nav {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: #555;
+  font-size: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: #fff;
+}
+
+.logout-btn {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #2563eb, #16a34a);
+}
+
+/* ==== MAIN CONTENT ==== */
+.main-content {
+  flex: 1;
+  padding: 40px 50px;
+  background-color: #f7f9fc;
+  margin-left: 440px;
+  display: flex;
+  justify-content: center;
+}
+
+.content-wrap {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  margin-bottom: 35px;
+}
+
+.wallet-controls {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  min-height: 44px;
+  z-index: 20;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.header span {
+  color: #2563eb;
+}
+
+.connect-wallet-btn {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.connect-wallet-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #2563eb, #16a34a);
+}
+
+.wallet-address {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wallet-actions-footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 0 40px;
+}
+
+.walletbutton,
+.exportButton,
+.logoutButtonn {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.walletbutton:hover,
+.exportButton:hover,
+.logoutButtonn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #2563eb, #16a34a);
+}
+
+/* Cards */
+.card-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 100px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  transition: 0.3s;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card h3 {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+input[type="file"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  margin-bottom: 10px;
+  background: #fff;
+  color: #000;
+}
+
+input:focus {
+  border-color: #2563eb;
+}
+
+.action-btn {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #2563eb, #16a34a);
+}
+
+/* Records Table */
+.records-section {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.records-section h3 {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 15px;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.records-table th,
+.records-table td {
+  text-align: left;
+  padding: 12px 15px;
+  font-size: 15px;
+}
+
+.records-table th {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: white;
+}
+
+.records-table tr:nth-child(even) {
+  background: #f4f7ff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 1px solid #eee;
+    box-shadow: none;
+    position: sticky;
+    top: 0;
+    left: auto;
+    height: auto;
+  }
+  .main-content {
+    padding: 20px;
+    margin-left: 0;
+  }
+  .content-wrap {
+    max-width: 100%;
+  }
+  .wallet-controls {
+    right: 12px;
+    top: 12px;
+  }
+}
+
+/* ================= Privy Modal Styles (wallet/email modal) ================= */
+
+/* Modal overlay */
+.privy-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 12, 20, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+}
+
+/* Modal card */
+.privy-modal {
+  width: 420px;
+  max-width: 100%;
+  background: white;
+  border-radius: 14px;
+  padding: 28px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(10, 20, 30, 0.25);
+  text-align: center;
+}
+
+/* Close button (top-right) */
+.privy-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Title */
+.privy-modal h2 {
+  margin: 8px 0 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Email field group */
+.privy-email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.privy-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 10px;
+  background: #fbfdff;
+}
+
+.privy-field input[type="email"] {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  background: transparent;
+  color: #0f172a;
+}
+
+/* Submit button inline */
+.privy-submit {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Divider */
+.privy-divider {
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9aa5ab;
+}
+.privy-divider span {
+  background: white;
+  padding: 0 12px;
+}
+
+/* Wallet button */
+.privy-wallet-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #e6edf0;
+  cursor: pointer;
+  font-weight: 700;
+  background: #ffffff;
+  transition: background 0.18s, transform 0.12s;
+}
+.privy-wallet-btn:hover {
+  background: #f4f7fb;
+  transform: translateY(-2px);
+}
+
+/* Footer note */
+.privy-footer {
+  margin-top: 16px;
+  color: #9aa5ab;
+  font-size: 13px;
+}
+
+/* small messages */
+.privy-msg {
+  color: #ef4444;
+  font-size: 13px;
+  margin: 0;
+}
