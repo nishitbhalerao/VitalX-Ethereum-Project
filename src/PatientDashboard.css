@@ -18,6 +18,7 @@ body {
 }
 
 /* ==== SIDEBAR ==== */
+
 .sidebar {
   width: 250px;
   background: #ffffff;
@@ -214,6 +215,10 @@ body {
   margin-bottom: 15px;
 }
 
+.connect-wallet-btn{
+  margin-top: 10px;
+  margin-right: 15px;
+}
 input[type="file"],
 input[type="text"] {
   width: 100%;
@@ -280,7 +285,7 @@ input:focus {
 }
 
 .records-table tr:nth-child(even) {
-  background: #f4f7ff;
+background: #f4f7ff;
 }
 
 /* Responsive */
@@ -312,9 +317,8 @@ input:focus {
   }
 }
 
-/* ================= Privy Modal Styles (wallet/email modal) ================= */
+/* ================= Privy Modal Styles ================= */
 
-/* Modal overlay */
 .privy-modal-overlay {
   position: fixed;
   inset: 0;
@@ -326,7 +330,6 @@ input:focus {
   padding: 24px;
 }
 
-/* Modal card */
 .privy-modal {
   width: 420px;
   max-width: 100%;
@@ -338,7 +341,6 @@ input:focus {
   text-align: center;
 }
 
-/* Close button (top-right) */
 .privy-close {
   position: absolute;
   right: 12px;
@@ -349,14 +351,12 @@ input:focus {
   cursor: pointer;
 }
 
-/* Title */
 .privy-modal h2 {
   margin: 8px 0 18px;
   font-weight: 700;
   color: #111827;
 }
 
-/* Email field group */
 .privy-email-form {
   display: flex;
   flex-direction: column;
@@ -383,7 +383,6 @@ input:focus {
   color: #0f172a;
 }
 
-/* Submit button inline */
 .privy-submit {
   background: transparent;
   border: none;
@@ -392,7 +391,6 @@ input:focus {
   cursor: pointer;
 }
 
-/* Divider */
 .privy-divider {
   margin: 16px 0;
   display: flex;
@@ -405,7 +403,6 @@ input:focus {
   padding: 0 12px;
 }
 
-/* Wallet button */
 .privy-wallet-btn {
   width: 100%;
   padding: 12px 16px;
@@ -421,16 +418,33 @@ input:focus {
   transform: translateY(-2px);
 }
 
-/* Footer note */
 .privy-footer {
   margin-top: 16px;
   color: #9aa5ab;
   font-size: 13px;
 }
 
-/* small messages */
 .privy-msg {
   color: #ef4444;
   font-size: 13px;
   margin: 0;
+}
+
+/* ===================== ADDED FIX FOR BUTTON PLACEMENT ===================== */
+
+/* Sidebar: keep nav on top, buttons at bottom */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Group Connect Wallet + Logout at bottom */
+.sidebar > .connect-wallet-btn,
+.sidebar > .logout-btn {
+  margin-top: auto !important;
+}
+
+/* Disconnect Wallet should sit directly above Logout */
+.sidebar > .connect-wallet-btn {
+  margin-bottom: -270px !important;
 }

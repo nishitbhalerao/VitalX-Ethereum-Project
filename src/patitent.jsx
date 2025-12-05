@@ -125,7 +125,22 @@ const PatientModule = () => {
           </button>
         </nav>
 
-        <button className="logout-btn" onClick={handleAppLogout}>
+        <button 
+          className="connect-wallet-btn" 
+          onClick={logout}
+          disabled={!authenticated}
+          style={{ 
+            width: "90%", 
+            margin: "10px auto 5px auto",
+            opacity: !authenticated ? 0.5 : 1,
+            cursor: !authenticated ? "not-allowed" : "pointer",
+            color: "black"
+          }}
+        >
+          Disconnect Wallet
+        </button>
+
+        <button className="logout-btn" onClick={handleAppLogout} style={{ margin: "0 auto 10px auto", width: "90%" }}>
           Logout
         </button>
       </aside>
@@ -161,7 +176,7 @@ const PatientModule = () => {
           <div
             className="card large-card"
             id="upload-card"
-            style={{ minWidth: "350px", minHeight: "220px", padding: "40px", margin: "20px auto" }}
+            style={{ width: "950px", height: "410px", padding: "55px", margin: "60px auto 20px auto" }}
           >
             <h3>Upload Health Record</h3>
             <input
@@ -169,13 +184,13 @@ const PatientModule = () => {
               placeholder="Enter file name"
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
-              style={{ marginBottom: "10px" }}
+              style={{ marginBottom: "25px", padding: "15px" }}
             />
             <input 
               id="file-input"
               type="file" 
               onChange={(e) => setSelectedFile(e.target.files[0])}
-              style={{ marginBottom: "10px" }} 
+              style={{ marginBottom: "25px", padding: "15px" }} 
             />
             <button
               className="action-btn"
