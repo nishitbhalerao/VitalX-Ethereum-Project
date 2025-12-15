@@ -45,10 +45,10 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <header id="home" className="hero-section">
+      <header id="home" className="hero-section" style={{ marginTop: "80px", marginBottom: "100px" }}>
         <div className="hero-content">
-          <h1 className="fade-in">Empowering You With Secure Health Data</h1>
-          <p className="text-slide">
+          <h1 className="fade-in" style={{ marginBottom: "30px" }}>Empowering You With Secure Health Data</h1>
+          <p className="text-slide" style={{ marginBottom: "40px", maxWidth: "600px", margin: "0 auto 40px auto" }}>
             VitalX is your personal gateway to a secure, decentralized health record system.
             Own your medical data with confidence — powered by blockchain and privacy-first tech.
           </p>
@@ -65,23 +65,37 @@ const LandingPage = () => {
       </header>
 
       {/* About Section */}
-      <section id="about" className="about-section">
-        <h2 className="underline-title">About VitalX</h2>
-        <div className="about-card">
-          <p>
-            VitalX is a next-gen healthcare record platform leveraging Ethereum and IPFS to give patients
-            ultimate control. Enjoy tamper-proof, transparent, and verifiable medical interactions — all on-chain.
-            <br /><br />
-            We aim to revolutionize how health data is managed, making every interaction private,
-            immutable, and user-owned. Your health, your data — always in your control.
-          </p>
+      <section id="about" className="about-section" style={{ marginTop: "200px", marginBottom: "200px", padding: "0 20px" }}>
+        <h2 className="underline-title" style={{ marginBottom: "40px" }}>About VitalX</h2>
+        <div className="about-card" style={{ 
+          width: "900px", 
+          height: "350px", 
+          margin: "0 auto", 
+          padding: "60px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center"
+        }}>
+          <div>
+            <p style={{ lineHeight: "1.8", fontSize: "16px", marginBottom: "20px" }}>
+              VitalX is a next-gen healthcare record platform leveraging Ethereum and IPFS 
+              to give patients ultimate control. Enjoy tamper-proof, transparent, and 
+              verifiable medical interactions — all on-chain.
+            </p>
+            <p style={{ lineHeight: "1.8", fontSize: "16px" }}>
+              We aim to revolutionize how health data is managed, making every 
+              interaction private, immutable, and user-owned. Your health, your data — 
+              always in your control.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Contact Form Section (Always Visible) */}
-      <section id="contact" className="contact-section">
-        <h2 className="underline-title">Contact Us</h2>
-        <form className="contact-form" onSubmit={handleSubmit}>
+      <section id="contact" className="contact-section" style={{ marginTop: "200px", marginBottom: "50px", padding: "0 20px" }}>
+        <h2 className="underline-title" style={{ marginBottom: "40px" }}>Contact Us</h2>
+        <form className="contact-form" onSubmit={handleSubmit} style={{ maxWidth: "600px", margin: "0 auto" }}>
           <input
             type="text"
             name="name"

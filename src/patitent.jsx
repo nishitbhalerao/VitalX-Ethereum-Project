@@ -1,10 +1,12 @@
-// patient.jsx WITH PINATA + SUPABASE PERSISTENCE  
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { usePrivy } from "@privy-io/react-auth";
 import { Copy } from "lucide-react";
+import { ethers } from "ethers";
 import { uploadToPinata } from "./pinataUpload";
 import { supabase } from "./supabaseClient";
+import contractABI from "./VitalXRecordStorageABI.json";
+import { CONTRACT_ADDRESS } from "./contract";
 import "./PatientDashboard.css";
 
 const PatientModule = () => {
@@ -25,7 +27,7 @@ const PatientModule = () => {
   const shortAddress =
     walletAddress ? walletAddress.slice(0, 6) + "..." + walletAddress.slice(-4) : "";
 
-  // ⭐ FETCH USER RECORDS WHEN PAGE LOADS
+  /* ================= FETCH RECORDS ================= */
   useEffect(() => {
     if (!walletAddress) return;
 
@@ -36,11 +38,8 @@ const PatientModule = () => {
         .eq("user_id", walletAddress)
         .order("id", { ascending: false });
 
-      if (error) {
-        console.error("Fetch error:", error);
-      } else {
-        setRecords(data);
-      }
+      if (error) console.error("Fetch error:", error);
+      else setRecords(data);
     };
 
     fetchRecords();
@@ -69,21 +68,27 @@ const PatientModule = () => {
     try {
       await exportWallet();
       alert("Private key export started.");
-    } catch (err) {
+    } catch {
       alert("Failed to export private key.");
     }
     setExportConfirm(false);
   };
 
-  // ⭐ UPLOAD TO PINATA + SAVE IN SUPABASE
+  /*UPLOAD FLOW
+     1. Upload to Pinata
+     2. Save to Supabase
+     3. Store CID on Blockchain*/
+
   const handleFileUpload = async () => {
     if (!fileName || !selectedFile)
       return alert("Enter filename & choose a file first.");
 
     try {
+      /* 1️⃣ Upload to Pinata */
       const cid = await uploadToPinata(selectedFile);
       const fileUrl = `https://gateway.pinata.cloud/ipfs/${cid}`;
 
+      /* 2️⃣ Save in Supabase */
       const today = new Date();
       const date = today.toLocaleDateString("en-GB", {
         day: "2-digit",
@@ -98,28 +103,44 @@ const PatientModule = () => {
         file_cid: cid,
         file_type: selectedFile.type,
         access: fullName,
-        date: date, // ⭐ NOW SAVED!
+        date,
       };
 
       const { error } = await supabase.from("Records").insert(newRecord);
-
       if (error) {
         console.error("Supabase insert error:", error);
-        alert("Failed to save in database.");
+        return alert("Failed to save in database.");
+      }
+
+      /* 3️⃣ Store CID on Blockchain */
+      if (!window.ethereum) {
+        alert("MetaMask not found");
         return;
       }
 
-      // Add to UI instantly
-      setRecords((prev) => [newRecord, ...prev]);
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
 
-      alert("File uploaded successfully!");
+      const contract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        contractABI,
+        signer
+      );
+
+      const tx = await contract.uploadRecord(cid, fileName);
+      await tx.wait();
+
+      /* UI Update */
+      setRecords((prev) => [newRecord, ...prev]);
+      alert("File uploaded & recorded on blockchain!");
 
       setFileName("");
       setSelectedFile(null);
       document.getElementById("file-input").value = "";
+
     } catch (err) {
-      console.error("Pinata upload failed:", err);
-      alert("Upload failed.");
+      console.error("Upload failed:", err);
+      alert("Upload failed. Check console.");
     }
   };
 
@@ -127,14 +148,11 @@ const PatientModule = () => {
     if (record.file_url) window.open(record.file_url, "_blank");
   };
 
+  /* ================= UI ================= */
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
-        <div className="logo">
-          <h2 style={{ color: "#2563eb", fontWeight: 700 }}>
-            💙 VitalX
-          </h2>
-        </div>
+        <h2 style={{ color: "#2563eb", fontWeight: 700 }}>💙 VitalX</h2>
 
         <nav>
           <button className="active">🏠 Dashboard</button>
@@ -151,15 +169,13 @@ const PatientModule = () => {
         </button>
       </aside>
 
-      {/* MAIN CONTENT */}
       <main className="main-content">
         <div className="content-wrap">
           <div className="header">
-            <h1>
+            <h1 id="welc-msg">
               Welcome Back, <span>{fullName}</span> 👋
             </h1>
 
-            {/* WALLET SECTION */}
             <div className="wallet-wrapper">
               {!authenticated ? (
                 <button
@@ -191,24 +207,14 @@ const PatientModule = () => {
                     />
                   </div>
 
-                  {copied && <div className="copy-popup">Copied!</div>}
-
                   {dropdownOpen && (
-                    <div
-                      className="wallet-dropdown"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <button className="disconnect-btn" onClick={handleExport}>
+                    <div className="wallet-dropdown">
+                      <button onClick={handleExport}>
                         {exportConfirm ? "Confirm Export Key" : "Export Private Key"}
                       </button>
-
                       <button
-                        className="disconnect-btn"
                         style={{ color: "#ff5252" }}
-                        onClick={async () => {
-                          setDropdownOpen(false);
-                          await logout();
-                        }}
+                        onClick={async () => await logout()}
                       >
                         Disconnect Wallet
                       </button>
@@ -219,31 +225,29 @@ const PatientModule = () => {
             </div>
           </div>
 
-          {/* UPLOAD CARD */}
-          <div className="card-grid">
-            <div className="card large-card" id="upload-card">
-              <h3>Upload Health Record</h3>
+          {/* Upload */}
+          <div className="card large-card" id="upload-card">
+            <h3>Upload Health Record</h3>
 
-              <input
-                type="text"
-                placeholder="Enter file name"
-                value={fileName}
-                onChange={(e) => setFileName(e.target.value)}
-              />
+            <input
+              type="text"
+              placeholder="Enter file name"
+              value={fileName}
+              onChange={(e) => setFileName(e.target.value)}
+            />
 
-              <input
-                type="file"
-                id="file-input"
-                onChange={(e) => setSelectedFile(e.target.files[0])}
-              />
+            <input
+              type="file"
+              id="file-input"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+            />
 
-              <button className="action-btn" disabled={!authenticated} onClick={handleFileUpload}>
-                Upload to IPFS
-              </button>
-            </div>
+            <button className="action-btn" id="upload-ipfs" disabled={!authenticated} onClick={handleFileUpload}>
+              Upload to IPFS
+            </button>
           </div>
 
-          {/* RECORDS TABLE */}
+          {/* Records */}
           <div className="records-section" id="records-section">
             <h3>Your Records</h3>
 
@@ -264,11 +268,11 @@ const PatientModule = () => {
                     </td>
                   </tr>
                 ) : (
-                  records.map((rec, index) => (
-                    <tr key={index}>
+                  records.map((rec, i) => (
+                    <tr key={i}>
                       <td
                         onClick={() => handleViewFile(rec)}
-                        style={{ cursor: "pointer", color: "#2563eb", textDecoration: "underline" }}
+                        style={{ cursor: "pointer", color: "#2563eb" }}
                       >
                         {rec.file_name}
                       </td>

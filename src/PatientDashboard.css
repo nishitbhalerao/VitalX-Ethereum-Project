@@ -424,9 +424,7 @@ input:focus {
   margin-bottom: -270px !important;
 }
 
-/* ============================================================= */
-/* ========== WALLET UI: GRADIENT PILL + COPY + DROPDOWN ======== */
-/* ============================================================= */
+/*  WALLET UI: GRADIENT PILL + COPY + DROPDOWN */
 
 .wallet-wrapper {
   position: fixed;
@@ -528,4 +526,29 @@ input:focus {
   15% { opacity: 1; transform: translateY(0); }
   85% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-5px); }
+}
+
+#welc-msg{
+  font-size: 40px;
+}
+
+#upload-card {
+  margin-top: 120px; 
+  margin-bottom: 20px;
+  max-width: 1000px;
+  height: 380px;
+  padding: 35px;
+}
+
+#upload-ipfs{
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 20px;
+}
+input{
+  margin-top: 15px;
+}
+
+#records-section{
+  margin-top: 130px;
 }
