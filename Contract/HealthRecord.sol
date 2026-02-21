@@ -84,3 +84,4 @@ contract VitalXRecordStorage {
         return recordsByUploader[_uploader];
     }
 }
+
