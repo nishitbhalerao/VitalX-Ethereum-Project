@@ -1,0 +1,134 @@
+.signup-container {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-left: 350px;
+  background: #f6f9fc;
+}
+
+.signup-card {
+  display: flex;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 900px;
+  max-width: 95%;
+}
+
+.signup-info {
+  flex: 1;
+  padding: 56px 44px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #246bfc;
+}
+
+.signup-info h2 {
+  margin-top: 20px;
+  font-size: 24px;
+  color: #1f1f1f;
+}
+
+.features {
+  list-style: none;
+  margin-top: 30px;
+  color: #000;
+}
+
+.features li {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.signup-form {
+  flex: 1;
+  padding: 56px 44px;
+  background: #f6f9fc;
+}
+
+.signup-form h2 {
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: #246bfc;
+}
+
+.role-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.role-btn {
+  background: #e3e8ee;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #246bfc;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.role-btn.active {
+  background: #246bfc;
+  color: #fff;
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #e3e8ee;
+  font-size: 16px;
+  background: #fff;
+  color: #000;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 18px;
+  color: #000;
+}
+
+
+.create-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #246bfc, #22c55e);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+
+.create-btn:hover {
+  background: linear-gradient(90deg, #22c55e, #246bfc);
+}
+
+.login-text {
+  text-align: center;
+  font-size: 15px;
+  color: #246bfc;
+}
+
+.login-text a {
+  color: #22c55e;
+  text-decoration: underline;
+  font-weight: 500;
+}
